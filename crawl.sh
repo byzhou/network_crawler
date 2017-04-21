@@ -26,7 +26,7 @@ crawl () {
 	else
 		touch ${target_hash_file};
 	fi
-	for link in `curl -v --silent $1 2> /dev/null | sed -n 's/.*\(http[s]:[^"]*\).*/\1/p'`;
+	for link in `curl -v --silent $1 2> /dev/null | sed -n 's/.*\(http[s]:[^"=?]*\).*/\1/p'`;
 	do 
 		hash_value=`echo $link | sha256sum | sed -n "s/\([^\ ]*\).*/\1/p" | sort -u`;
 		echo ${hash_value} >> ${target_hash_file}; 
@@ -36,7 +36,7 @@ crawl () {
 }
 
 link_map () {
-	for link in `curl -v --silent $1 2> /dev/null | sed -n 's/.*\(http[s]:[^"]*\).*/\1/p'`;
+	for link in `curl -v --silent $1 2> /dev/null | sed -n 's/.*\(http[s]:[^"=?]*\).*/\1/p'`;
 	do
 		echo $link;
 	done;
@@ -65,6 +65,6 @@ report () {
 	sort data/*.log | uniq -c | sort -n -r | head -n 20 | awk '{printf $1 " "} system("grep "$2" data/index.txt")' | sed -n "/http[s].*/p" | awk '{print $1 " " $3}';
 }
 
-#recursive_crawl 5 https://en.wikipedia.org/wiki/Battleship
+recursive_crawl 6 https://en.wikipedia.org/wiki/HMS_Hood
 
-report 
+#report 
