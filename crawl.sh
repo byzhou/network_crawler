@@ -52,7 +52,7 @@ recursive_crawl () {
 		done
 	else
 		crawl $2;
-		cat ${index_file} | sort -u > tmp;
+		cat ${index_file} | sort -u -n > tmp;
 		mv tmp ${index_file};
 	fi
 
@@ -65,6 +65,6 @@ report () {
 	done
 }
 
-recursive_crawl 2 https://en.wikipedia.org/wiki/Battleship
+recursive_crawl 10 https://en.wikipedia.org/wiki/Battleship
 
-report 
+#report 
