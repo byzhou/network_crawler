@@ -1,7 +1,7 @@
 #!/bin/bash
 
 data_base=data/
-index_file=${data_base}index.log
+index_file=${data_base}index.txt
 
 if [ ! -d ${data_base} ]; then
 	mkdir ${data_base};
@@ -52,11 +52,19 @@ recursive_crawl () {
 		done
 	else
 		crawl $2;
-		cat ${index_file} | sort -u > ${index_file};
+		cat ${index_file} | sort -u > tmp;
+		mv tmp ${index_file};
 	fi
 
 }
 
-#crawl https://en.wikipedia.org/wiki/Battleship
-#link_map https://en.wikipedia.org/wiki/Battleship
-recursive_crawl 2 https://en.wikipedia.org/wiki/Battleship
+report () {
+	for hashes in `cat ${data_base}*.log | uniq -c | sort -n | tail -n 3 | awk '{print $2}'`;
+	do
+		cat ${index_file} | grep ${hashes} | sed -n 's/.*\(http[s]:[^"]*\).*/\1/p';
+	done
+}
+
+#recursive_crawl 2 https://en.wikipedia.org/wiki/Battleship
+
+report 
