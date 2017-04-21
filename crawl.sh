@@ -59,12 +59,13 @@ recursive_crawl () {
 }
 
 report () {
-	for hashes in `cat ${data_base}*.log | uniq -c | sort -n | tail -n 3 | awk '{print $2}'`;
+	echo "Here is a report of page ranking ... ";
+	for hashes in `sort ${data_base}*.log | uniq -c | sort -n -u | awk '{print $2}'`;
 	do
 		cat ${index_file} | grep ${hashes} | sed -n 's/.*\(http[s]:[^"]*\).*/\1/p';
 	done
 }
 
-recursive_crawl 5 https://en.wikipedia.org/wiki/Battleship
+#recursive_crawl 5 https://en.wikipedia.org/wiki/Battleship
 
-#report 
+report 
