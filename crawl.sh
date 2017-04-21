@@ -65,6 +65,6 @@ report () {
 	done
 }
 
-recursive_crawl 10 https://en.wikipedia.org/wiki/Battleship
+recursive_crawl 5 https://en.wikipedia.org/wiki/Battleship
 
 #report 
