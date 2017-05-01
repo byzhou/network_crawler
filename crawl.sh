@@ -62,9 +62,9 @@ report () {
 	mv tmp ${index_file};
 
 	echo "Here is a report of page ranking ... ";
-	sort data/*.log | uniq -c | sort -n -r | head -n 20 | awk '{printf $1 " "} system("grep "$2" data/index.txt")' | sed -n "/http[s].*/p" | awk '{print $1 " " $3}';
+	sort data/*.log | uniq -c | sort -n -r | awk '{printf $1 " "} system("grep "$2" data/index.txt")' | sed -n "/http[s].*/p" | awk '{print $1 " " $3}';
 }
 
-recursive_crawl 6 https://en.wikipedia.org/wiki/HMS_Hood
+#recursive_crawl 6 https://en.wikipedia.org/wiki/HMS_Hood
 
-#report 
+report 
